@@ -19,10 +19,9 @@ cards.addEventListener("click", e => { agregarCarrito(e) });
 items.addEventListener("click", e => { btnAccion(e) });
 
 const fetchData = async () => {
-        const res = await fetch('articulos.json');
-        const data =  await res.json();
-        // console.log(data);
-        renderCards(data);
+    const res = await fetch('articulos.json');
+    const data =  await res.json();
+    renderCards(data);
 }
 
 const renderCards = data => {
@@ -38,12 +37,8 @@ const renderCards = data => {
 }
 
 const agregarCarrito = e =>{
-    //console.log(e.target);
-    //console.log(e.target.classList.contains("btn-dark"))
-    if (e.target.classList.contains("btn-dark")){
-        setCarrito(e.target.parentElement)
-    }
-    e.stopPropagation()
+    e.target.classList.contains("btn-dark") && setCarrito(e.target.parentElement); //Operador AND
+    e.stopPropagation();
 }
 
 const setCarrito = objeto => {
@@ -55,14 +50,13 @@ const setCarrito = objeto => {
         cantidad: 1       
     }
     if(carrito.hasOwnProperty(producto.id)){
-        producto.cantidad = carrito[producto.id].cantidad + 1
+        producto.cantidad = carrito[producto.id].cantidad + 1 //Operador AND? No funciono (=), consultar a Jorge
     }
-    carrito[producto.id] = {...producto}
+    carrito[producto.id] = {...producto} //Spread
     renderCarrito();
 }
 
  const renderCarrito = () => {
-    //console.log(carrito);
     items.innerHTML = ""
 
     Object.values(carrito).forEach(producto => {
@@ -85,7 +79,7 @@ const setCarrito = objeto => {
  const renderFooter = () => {
     footer.innerHTML = "";
     if(Object.keys(carrito).length === 0) {
-        footer.innerHTML = `<th scope="row" colspan="5">Carrito vacío</th>`;
+        footer.innerHTML = `<th scope="row" colspan="5">Carrito vacío</th>`; //Operador AND? No funciono (=), consultar a Jorge
         return;
     }
 
@@ -109,20 +103,16 @@ const setCarrito = objeto => {
 const btnAccion = e => {
     if (e.target.classList.contains("btn-info")){
         const producto = carrito[e.target.dataset.id];
-        producto.cantidad++;
-        carrito[e.target.dataset.id] = { ...producto};
-        renderCarrito()       
+        producto.cantidad++; //Operador ++ (incremento)
+        carrito[e.target.dataset.id] = { ...producto}; //Spread
+        renderCarrito();     
     }
 
     if (e.target.classList.contains("btn-danger")){
         const producto = carrito[e.target.dataset.id];
-        producto.cantidad--;
-        if (producto.cantidad === 0) {
-            delete carrito[e.target.dataset.id];
-        }else{
-            carrito[e.target.dataset.id] = { ...producto}
+        producto.cantidad--; //Operador -- (decremento)
+        producto.cantidad === 0 ? delete carrito[e.target.dataset.id] : carrito[e.target.dataset.id] = { ...producto} //Operador ternario + Spread
         }
-        renderCarrito()       
+        renderCarrito();       
     }
-    e.stopPropagation()
-}
+    e.stopPropagation();
