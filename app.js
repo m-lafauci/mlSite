@@ -39,6 +39,13 @@ const renderCards = data => {
 const agregarCarrito = e =>{
     e.target.classList.contains("btn-dark") && setCarrito(e.target.parentElement); //Operador AND
     e.stopPropagation();
+    Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Producto añadido al carrito',
+        showConfirmButton: false,
+        timer: 2000
+      })
 }
 
 const setCarrito = objeto => {
@@ -50,7 +57,7 @@ const setCarrito = objeto => {
         cantidad: 1       
     }
     if(carrito.hasOwnProperty(producto.id)){
-        producto.cantidad = carrito[producto.id].cantidad + 1 //Operador AND? No funciono (=), consultar a Jorge
+        producto.cantidad = carrito[producto.id].cantidad + 1
     }
     carrito[producto.id] = {...producto} //Spread
     renderCarrito();
@@ -79,7 +86,7 @@ const setCarrito = objeto => {
  const renderFooter = () => {
     footer.innerHTML = "";
     if(Object.keys(carrito).length === 0) {
-        footer.innerHTML = `<th scope="row" colspan="5">Carrito vacío</th>`; //Operador AND? No funciono (=), consultar a Jorge
+        footer.innerHTML = `<th scope="row" colspan="5">Carrito vacío</th>`;
         return;
     }
 
@@ -95,8 +102,25 @@ const setCarrito = objeto => {
 
     const btnVaciar = document.getElementById("vaciar-carrito");
     btnVaciar.addEventListener("click", () => {
-        carrito = {};
-        renderCarrito();
+        Swal.fire({
+            title: 'Desea vaciar el carrito?',
+            text: "Esta acción no se puede revertir",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Si, quiero vaciar el carrito'
+          }).then((result) => {
+            if (result.isConfirmed) {
+              Swal.fire(
+                'Carrito vacío',
+                'Se han eliminado todos los productos del carrito',
+                'warning'
+              )
+              carrito = {};
+              renderCarrito();
+            }
+          })       
     })
 }
 
@@ -105,14 +129,28 @@ const btnAccion = e => {
         const producto = carrito[e.target.dataset.id];
         producto.cantidad++; //Operador ++ (incremento)
         carrito[e.target.dataset.id] = { ...producto}; //Spread
-        renderCarrito();     
+        Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Producto añadido al carrito',
+            showConfirmButton: false,
+            timer: 2000
+            })
+        renderCarrito();        
     }
 
     if (e.target.classList.contains("btn-danger")){
         const producto = carrito[e.target.dataset.id];
         producto.cantidad--; //Operador -- (decremento)
         producto.cantidad === 0 ? delete carrito[e.target.dataset.id] : carrito[e.target.dataset.id] = { ...producto} //Operador ternario + Spread
+        Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: 'Producto eliminado del carrito',
+            showConfirmButton: false,
+            timer: 2000
+          })
         }
-        renderCarrito();       
+        renderCarrito();    
     }
     e.stopPropagation();
