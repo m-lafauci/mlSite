@@ -39,13 +39,6 @@ const renderCards = data => {
 const agregarCarrito = e =>{
     e.target.classList.contains("btn-dark") && setCarrito(e.target.parentElement); //Operador AND
     e.stopPropagation();
-    Swal.fire({
-        position: 'center',
-        icon: 'success',
-        title: 'Producto añadido al carrito',
-        showConfirmButton: false,
-        timer: 2000
-      })
 }
 
 const setCarrito = objeto => {
@@ -60,6 +53,13 @@ const setCarrito = objeto => {
         producto.cantidad = carrito[producto.id].cantidad + 1
     }
     carrito[producto.id] = {...producto} //Spread
+    Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Producto añadido al carrito',
+        showConfirmButton: false,
+        timer: 2000
+      })
     renderCarrito();
 }
 
@@ -129,13 +129,6 @@ const btnAccion = e => {
         const producto = carrito[e.target.dataset.id];
         producto.cantidad++; //Operador ++ (incremento)
         carrito[e.target.dataset.id] = { ...producto}; //Spread
-        Swal.fire({
-            position: 'center',
-            icon: 'success',
-            title: 'Producto añadido al carrito',
-            showConfirmButton: false,
-            timer: 2000
-            })
         renderCarrito();        
     }
 
@@ -143,14 +136,17 @@ const btnAccion = e => {
         const producto = carrito[e.target.dataset.id];
         producto.cantidad--; //Operador -- (decremento)
         producto.cantidad === 0 ? delete carrito[e.target.dataset.id] : carrito[e.target.dataset.id] = { ...producto} //Operador ternario + Spread
-        Swal.fire({
-            position: 'center',
-            icon: 'error',
-            title: 'Producto eliminado del carrito',
-            showConfirmButton: false,
-            timer: 2000
-          })
+        if(producto.cantidad==0){
+            Swal.fire({
+                position: 'center',
+                icon: 'error',
+                title: 'Producto eliminado del carrito',
+                showConfirmButton: false,
+                timer: 2000
+            })
         }
-        renderCarrito();    
     }
-    e.stopPropagation();
+    renderCarrito();  
+    e.stopPropagation();  
+    }
+    
