@@ -6,8 +6,66 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>mlSite</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-</head>
-<body>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+	  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+	  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  </head>
+
+ <body>
+    <nav class="navbar fixed-top navbar-expand-md navbar-dark bg-dark">
+      <a class="navbar-brand" href="#">Zara</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mx-auto">
+          <li>
+            <a class="nav-link" href="#">Remeras</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Camisas</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Buzos</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Camperas</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Sweaters</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Pantalones</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Calzas</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Vestidos</a>
+          </li>
+        </ul>
+        <form id="busqueda" class="form-inline">
+          <input class="form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="Search">
+          <button class="btn btn-light my-sm-0" type="submit">Buscar</button>
+        </form>
+      </div>
+    </nav>
+
+    <template id="template-card">
+      <div class="col-12 mb-2 col-md-3" style="width: 18rem;">
+        <img src="" alt="" class="card-img-top">
+        <div class="card">
+          <div class="card-body">
+            <h5>Titulo</h5>
+            <p>Precio</p>
+            <button class="btn btn-dark">Comprar</button>
+          </div>
+        </div>
+      </div>
+    </template>
+
   <div class="container">
     <h4>Carrito</h4>
     <table class="table">
@@ -38,7 +96,7 @@
       </td>
       <td class="font-weight-bold">$ <span></span></td>
   </template>
-  
+
   <template id="template-carrito"> 
     <tr>
       <th scope="row"></th>
@@ -52,18 +110,7 @@
     </tr>
   </template>
 
-  <template id="template-card">
-    <div class="col-12 mb-2 col-md-3" style="width: 18rem;">
-      <img src="" alt="" class="card-img-top">
-      <div class="card">
-        <div class="card-body">
-          <h5>Titulo</h5>
-          <p>Precio</p>
-          <button class="btn btn-dark">Comprar</button>
-        </div>
-      </div>
-    </div>
-  </template>
+
 
   <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="./app.js"></script>
