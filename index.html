@@ -5,116 +5,125 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>mlSite</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-	  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-	  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-  </head>
+    <link rel="stylesheet" href="./css/style.css">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</head>
 
- <body>
-    <nav class="navbar fixed-top navbar-expand-md navbar-dark bg-dark">
-      <a class="navbar-brand" href="#">Zara</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
+<body>
+  <nav class="navbar sticky-top navbar-expand-md navbar-dark bg-dark mb-4">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Navbar</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-    
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mx-auto">
-          <li>
-            <a class="nav-link" href="#">Remeras</a>
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0 mx-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="#">REMERAS</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Camisas</a>
+            <a class="nav-link" href="#">MUSCULOSAS</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Buzos</a>
+            <a class="nav-link" href="#">CAMISAS</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Camperas</a>
+            <a class="nav-link" href="#">BUZOS</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Sweaters</a>
+            <a class="nav-link" href="#">CAMPERAS</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Pantalones</a>
+            <a class="nav-link" href="#">SWEATERS</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Calzas</a>
+            <a class="nav-link" href="#">PANTALONES</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Vestidos</a>
+            <a class="nav-link" href="#">VESTIDOS</a>
           </li>
         </ul>
-        <form id="busqueda" class="form-inline">
-          <input class="form-control mr-sm-2" type="search" placeholder="Buscar" aria-label="Search">
-          <button class="btn btn-light my-sm-0" type="submit">Buscar</button>
+        <form id="busquedaNombre" class="d-flex" role="search">
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-light my-sm-0" type="submit">Search</button>
         </form>
       </div>
-    </nav>
+    </div>
+  </nav>
 
-    <template id="template-card">
-      <div class="col-12 mb-2 col-md-3" style="width: 18rem;">
+<div id="cards" class="row">
+</div>
+
+<template id="template-card">
+    <div class="col-12 ml-5 mb-3 col-md-2">
+    <div class="card border-light text-center" style="width: 18rem;">
         <img src="" alt="" class="card-img-top">
-        <div class="card">
-          <div class="card-body">
-            <h5>Titulo</h5>
-            <p>Precio</p>
-            <button class="btn btn-dark">Comprar</button>
-          </div>
+        <div class="card-body">
+            <h5 class="card-title">Titulo</h5>
+            <p>Precio $</p>
+            <button class="btn btn-secondary btn-lg">Agregar al carrito</button>
         </div>
       </div>
-    </template>
+    </div>
+</template>
 
-  <div class="container">
-    <h4>Carrito</h4>
+<div class="container justify-content-center">
+    <h5>Carrito de compras</h5>
     <table class="table">
-      <thead>
+      <thead class="table-dark">
         <tr>
-          <th scope="col">#</th>
-          <th scope="col">Item</th>
+          <th scope="col">ID</th>
+          <th scope="col">Nombre articulo</th>
           <th scope="col">Cantidad</th>
-          <th scope="col">Acción</th>
+          <th scope="col">Agregar / Quitar</th>
           <th scope="col">Total</th>
         </tr>
       </thead>
-      <tbody id="items"></tbody>
-      <tfoot>
+      <tbody id="items" class="table-light"></tbody>
+      <tfoot class="table-dark">
         <tr id="footer">
-          <th scope="row" colspan="5">Carrito vacío</th>
+          <th scope="row" colspan="5">Carrito vacio</th>
         </tr>
       </tfoot>
     </table>
-    <div class="row" id="cards"></div>
-  </div>
+</div>
 
-  <template id="template-footer">
-      <th scope="row" colspan="2">Total</th>
-      <td></td>
-      <td>
-        <button class="btn btn-danger btn-sm" id="vaciar-carrito">Vaciar carrito</button>
-      </td>
-      <td class="font-weight-bold">$ <span></span></td>
-  </template>
+<template id="template-footer">
+  <th scope="row" colspan="2">Total</th>
+    <td></td>
+    <td>
+      <button class="btn btn-danger" id="vaciar-carrito">Vaciar carrito</button>
+      <button class="btn btn-success" id="comprar-carrito">Comprar</button>
+    </td>
+    <td class="font-weight-bold">$ <span></span></td>
+</template>
 
-  <template id="template-carrito"> 
-    <tr>
-      <th scope="row"></th>
-      <td></td>
-      <td></td>
-      <td>
-          <button class="btn btn-info btn-sm">+</button>
-          <button class="btn btn-danger btn-sm">-</button>
-      </td>
-      <td>$ <span></span></td>
-    </tr>
-  </template>
+<template id="template-carrito"> 
+  <tr>
+    <th scope="row"></th>
+    <td></td>
+    <td></td>
+    <td>
+      <button class="btn btn-outline-success">Agregar</button>
+      <button class="btn btn-outline-danger">Quitar</button>
+    </td>
+    <td>$ <span></span></td>
+  </tr>
+</template>
 
-
-
-  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  <script src="./app.js"></script>
-
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+<script src="./app.js"></script>
 </body>
 </html>
 

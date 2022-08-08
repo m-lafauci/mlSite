@@ -1,0 +1,25 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+
+body{
+    font-family: 'Roboto', sans-serif;
+}
+
+table th, tr{
+    text-align: center;
+}
+
+p{
+    font-size: 22px;
+    
+}
+
+h5{
+    font-size: 23px;
+    font-weight: bold;
+}
+
+
+
