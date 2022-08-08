@@ -14,6 +14,7 @@ let carrito = {}; //carrito vacio
 document.addEventListener('DOMContentLoaded', () => {
     fetchData();
     fetchBusquedaNombre();
+    fetchBusquedaNombre2();
 
     if (localStorage.getItem("carrito")){ // trae el contenido del localStorage
         carrito = JSON.parse(localStorage.getItem("carrito"));
@@ -181,9 +182,9 @@ const setCarrito = objeto => {
         const data =  await resp.json();
 
     let buscarPorNombre = document.getElementById("busquedaNombre");
-    buscarPorNombre.addEventListener("submit", validarNombre);
+    buscarPorNombre.addEventListener("submit", validarNombre2);
 
-    function validarNombre(e){
+    function validarNombre2(e){
     e.preventDefault();
 
     let form = e.target;
@@ -205,6 +206,35 @@ const setCarrito = objeto => {
             e.stopPropagation(); 
     }
     };
+
+// 14 - Filtros del navbar
+
+const fetchBusquedaNombre2 = async () => {
+    const resp = await fetch('articulos.json');
+    const data =  await resp.json();
+
+    let buscarRemeras = document.getElementById("navRemeras");
+    buscarRemeras.addEventListener("click", obtener);
+
+    function obtener() {
+        let resultado = data.filter((elemento) => elemento.categoria === "REMERAS");
+        cards.innerHTML='';
+        for(const producto of resultado){
+            templateCard.querySelector("h5").textContent = producto.nombreProducto;
+            templateCard.querySelector("p").textContent = producto.precio;
+            templateCard.querySelector("img").setAttribute("src", producto.imagen);
+            templateCard.querySelector(".btn-secondary").dataset.id = producto.id;
+            const clone = templateCard.cloneNode(true)
+            fragment.appendChild(clone)
+        }
+            cards.appendChild(fragment)
+            renderCards();
+            e.stopPropagation(); 
+    }
+}
+    
+
+
 
     
 
