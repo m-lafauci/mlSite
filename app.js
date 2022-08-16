@@ -7,29 +7,29 @@ const templateCarrito = document.getElementById("template-carrito").content;
 const templateFooter = document.getElementById("template-footer").content;
 const items = document.getElementById("items");
 const footer = document.getElementById("footer");
+const importe = document.getElementById("importe");
 
-let carrito = {}; //carrito vacio
+let carrito = {}; // carrito vacio
+
+let productos; // variable para almacenar los datos del fetch
 
 // 02 - Carga DOM
 document.addEventListener('DOMContentLoaded', () => {
     fetchData();
-    fetchBusquedaNombre();
-    fetchBusquedaNombre2();
-
     if (localStorage.getItem("carrito")){ // trae el contenido del localStorage
         carrito = JSON.parse(localStorage.getItem("carrito"));
         renderCarrito();
     };
- });
+})
 
 // 07 - Eventos Click
 cards.addEventListener("click", e => { 
-    agregarCarrito(e)
-});
+    agregarCarrito(e);
+})
 
 items.addEventListener("click", e => {
-    btnAccion(e)
-});
+    btnAccion(e);
+})
 
 // 01 - Traigo los articulos del JSON
 const fetchData = async () => {
@@ -37,55 +37,66 @@ const fetchData = async () => {
     const data =  await res.json();
     renderCards(data);
     console.log(data);
+    productos = data;
 }
 
 // 04 - Renderizar las cards
 const renderCards = data => {
+    cards.innerHTML='';
     data.forEach(producto => {
         templateCard.querySelector("h5").textContent = producto.nombreProducto;
         templateCard.querySelector("p").textContent = producto.precio;
         templateCard.querySelector("img").setAttribute("src", producto.imagen);
-        templateCard.querySelector(".btn-secondary").dataset.id = producto.id;
-        const clone = templateCard.cloneNode(true)
-        fragment.appendChild(clone)
+        templateCard.querySelector(".btn-primary").dataset.id = producto.id;
+        const clone = templateCard.cloneNode(true);
+        fragment.appendChild(clone);
     })
-    cards.appendChild(fragment)
+    cards.appendChild(fragment);
 }
 
 // 05 - Asigna al boton Comprar la funcion de agregar al carrito
 const agregarCarrito = e =>{
-    e.target.classList.contains("btn-secondary") && setCarrito(e.target.parentElement); //Operador AND
-    e.stopPropagation(); //detiene otros eventos
+    e.target.classList.contains("btn-primary") && setCarrito(e.target.parentElement); // Operador AND
+    e.stopPropagation(); // detiene otros eventos
 }
 
 // 06 - Acumula los articulos agregados al carrito
 const setCarrito = objeto => {
-    console.log(objeto)
+    console.log(objeto);
     const producto ={
-        id: objeto.querySelector(".btn-secondary").dataset.id,
+        id: objeto.querySelector(".btn-primary").dataset.id,
         title: objeto.querySelector("h5").textContent,
         precio: objeto.querySelector("p").textContent,
         cantidad: 1       
     }
-    // Si el id del producto se repite no lo vuelve a cargar, solo aumenta la cantidad
+// Si el id del producto se repite no lo vuelve a cargar, solo aumenta la cantidad
     if(carrito.hasOwnProperty(producto.id)){
-        producto.cantidad = carrito[producto.id].cantidad + 1
+    producto.cantidad = carrito[producto.id].cantidad + 1
     }
-    // Agrega el producto cuando el id no se repita y muesta mensaje
-    carrito[producto.id] = {...producto} //Spread
-    Swal.fire({
-        position: 'center',
+// Agrega el producto cuando el id no se repita y muesta mensaje
+    carrito[producto.id] = {...producto} // Spread
+
+    const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 1500,
+    timerProgressBar: false,
+    didOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
+    }
+    })
+    Toast.fire({
         icon: 'success',
-        title: 'Producto añadido al carrito',
-        showConfirmButton: false,
-        timer: 2000
-      })
+        title: 'Producto añadido al carrito'
+    })
     renderCarrito(); // renderiza el carrito
 }
 
 // 09 - Carga/renderiza el contenido al carrito
- const renderCarrito = () => {
-    items.innerHTML = ""; //limpia html y lo deja vacio
+const renderCarrito = () => {
+    items.innerHTML = ""; // limpia html y lo deja vacio
 
     Object.values(carrito).forEach(producto => {
         templateCarrito.querySelector("th").textContent = producto.id;
@@ -99,69 +110,80 @@ const setCarrito = objeto => {
     })
     items.appendChild(fragment);
 
-    renderFooter(); //renderiza el footer
+    renderFooter(); // renderiza el footer
 
-   localStorage.setItem("carrito", JSON.stringify(carrito)); // guarda el contenido del carrito en localStorage
- }
+    localStorage.setItem("carrito", JSON.stringify(carrito)); // guarda el contenido del carrito en localStorage
+}
 
 // 10 - Calcula y renderiza el footer
-  const renderFooter = () => {
-    footer.innerHTML = ""; //limpia html y lo deja vacio
-    //cuando el carrito este vacio muestra "carrito vacio"
+const renderFooter = () => {
+    footer.innerHTML = ""; // limpia html y lo deja vacio
+    // cuando el carrito este vacio muestra "carrito vacio"
     if(Object.keys(carrito).length === 0) {
-        footer.innerHTML = `<th scope="row" colspan="5">Carrito vacío</th>`;
-        return; //sale de la funcion
+        footer.innerHTML = `<th scope="row" colspan="5">El carrito está vacio</th>`;
+        ocultarBtnPagar();
+        carritoVacio();
+        ocultarContenidoCarrito()
+        return; // sale de la funcion     
+    } else {
+        mostrarBtnPagar();
+        carritoLleno();
+        mostrarContenidoCarrito()
     }
-    //Calculos de cantidades e importes
+
+    // Calculos de cantidades e importes
     const nCantidad = Object.values(carrito).reduce((acc, {cantidad}) => acc + cantidad, 0);
     const nPrecio = Object.values(carrito).reduce((acc, {cantidad, precio}) => acc + cantidad * precio, 0);
-    
-    //Muestra los calculos obtenidos de cantidad e importes
+
+    // Muestra los calculos obtenidos de cantidad e importes
     templateFooter.querySelectorAll("td")[0].textContent = nCantidad;
     templateFooter.querySelector("span").textContent = nPrecio;
+    importe.innerHTML = `  $ ${nPrecio}`;
 
     const clone = templateFooter.cloneNode(true);
+
     fragment.appendChild(clone);
     footer.appendChild(fragment);
 
-// 11 - Vacia el contenido del carrito y muestra mensaje
-  const btnVaciar = document.getElementById("vaciar-carrito");
+    // 11 - Vacia el contenido del carrito y muestra mensaje
+    const btnVaciar = document.getElementById("vaciar-carrito");
+
     btnVaciar.addEventListener("click", () => {
         Swal.fire({
-            title: 'Desea vaciar el carrito?',
-            text: "Esta acción no se puede revertir",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Si, quiero vaciar el carrito'
-          }).then((result) => {
-            if (result.isConfirmed) {
-              Swal.fire(
-                'Carrito vacío',
-                'Se han eliminado todos los productos del carrito',
-                'warning'
-              )
-              carrito = {}; //vacia el carrito
-              renderCarrito(); //muestra carrito vacio
+        title: 'Desea vaciar el carrito?',
+        text: "Esta acción no se puede revertir",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Si, quiero vaciar el carrito'
+        }).then((result) => {
+        if (result.isConfirmed) {
+            Swal.fire(
+            'Carrito vacío',
+            'Se han eliminado todos los productos del carrito',
+            'warning'
+            )
             }
-          })       
+        carrito = {}; // vacia el carrito
+        renderCarrito(); // muestra carrito vacio     
+        })     
     })
 }
 
 // 12 - Botones para aumentar y disminuir cantidades del carrito
- const btnAccion = e => {
+const btnAccion = e => {
     if (e.target.classList.contains("btn-outline-success")){
         const producto = carrito[e.target.dataset.id];
-        producto.cantidad++; //Operador ++ (incremento)
-        carrito[e.target.dataset.id] = { ...producto}; //Spread
+        producto.cantidad++; // Operador ++ (incremento)
+        carrito[e.target.dataset.id] = { ...producto}; // Spread
         renderCarrito();        
     }
 
     if (e.target.classList.contains("btn-outline-danger")){
         const producto = carrito[e.target.dataset.id];
-        producto.cantidad--; //Operador -- (decremento)
-        producto.cantidad === 0 ? delete carrito[e.target.dataset.id] : carrito[e.target.dataset.id] = { ...producto} //Operador ternario + Spread
+        producto.cantidad--; // Operador -- (decremento)
+        producto.cantidad === 0 ? delete carrito[e.target.dataset.id] : carrito[e.target.dataset.id] = { ...producto} // Operador ternario + Spread
         if(producto.cantidad==0){
             Swal.fire({
                 position: 'center',
@@ -172,66 +194,192 @@ const setCarrito = objeto => {
             })
         }
     }
-    renderCarrito();  
+    renderCarrito();
     e.stopPropagation(); 
-    }
+}
 
 // 13 - Input de busqueda
-    const fetchBusquedaNombre = async () => {
-        const resp = await fetch('articulos.json');
-        const data =  await resp.json();
-
-    let buscarPorNombre = document.getElementById("busquedaNombre");
-    buscarPorNombre.addEventListener("submit", validarNombre2);
-
-    function validarNombre2(e){
+const buscarProducto = (e) =>{
     e.preventDefault();
-
     let form = e.target;
     let valorBuscado = form.children[0].value;
     console.log(valorBuscado);
 
-    let resultado = data.filter((elemento) => elemento.nombreProducto.includes(valorBuscado.toUpperCase()));
-        cards.innerHTML='';
-        for(const producto of resultado){
-            templateCard.querySelector("h5").textContent = producto.nombreProducto;
-            templateCard.querySelector("p").textContent = producto.precio;
-            templateCard.querySelector("img").setAttribute("src", producto.imagen);
-            templateCard.querySelector(".btn-secondary").dataset.id = producto.id;
-            const clone = templateCard.cloneNode(true)
-            fragment.appendChild(clone)
-        }
-            cards.appendChild(fragment)
-            renderCards();
-            e.stopPropagation(); 
-    }
-    };
+    let resultado = productos.filter((elemento) => elemento.nombreProducto.includes(valorBuscado.toUpperCase()));
+        
+    renderCards(resultado);
+}
+
+let buscarPorNombre = document.getElementById("busquedaNombre");
+buscarPorNombre.addEventListener("submit", buscarProducto);
 
 // 14 - Filtros del navbar
-
-const fetchBusquedaNombre2 = async () => {
-    const resp = await fetch('articulos.json');
-    const data =  await resp.json();
-
-    let buscarRemeras = document.getElementById("navRemeras");
-    buscarRemeras.addEventListener("click", obtener);
-
-    function obtener() {
-        let resultado = data.filter((elemento) => elemento.categoria === "REMERAS");
-        cards.innerHTML='';
-        for(const producto of resultado){
-            templateCard.querySelector("h5").textContent = producto.nombreProducto;
-            templateCard.querySelector("p").textContent = producto.precio;
-            templateCard.querySelector("img").setAttribute("src", producto.imagen);
-            templateCard.querySelector(".btn-secondary").dataset.id = producto.id;
-            const clone = templateCard.cloneNode(true)
-            fragment.appendChild(clone)
-        }
-            cards.appendChild(fragment)
-            renderCards();
-            e.stopPropagation(); 
-    }
+const filtrarRemeras = () =>{
+    let resultado = productos.filter((elemento) => elemento.categoria === "REMERAS");
+    renderCards(resultado)
 }
+let buscarRemeras = document.getElementById("navRemeras");
+buscarRemeras.addEventListener("click", filtrarRemeras);
+
+const filtrarMusculosas = () =>{
+    let resultado = productos.filter((elemento) => elemento.categoria === "MUSCULOSAS");
+    renderCards(resultado)
+}
+let buscarMusculosas = document.getElementById("navMusculosas");
+buscarMusculosas.addEventListener("click", filtrarMusculosas);
+
+const filtrarCamisas = () =>{
+    let resultado = productos.filter((elemento) => elemento.categoria === "CAMISAS");
+    renderCards(resultado)
+}
+let buscarCamisas = document.getElementById("navCamisas");
+buscarCamisas.addEventListener("click", filtrarCamisas);
+
+const filtrarBuzos = () =>{
+    let resultado = productos.filter((elemento) => elemento.categoria === "BUZOS");
+    renderCards(resultado)
+}
+let buscarBuzos = document.getElementById("navBuzos");
+buscarBuzos.addEventListener("click", filtrarBuzos);
+
+const filtrarCamperas = () =>{
+    let resultado = productos.filter((elemento) => elemento.categoria === "CAMPERAS");
+    renderCards(resultado)
+}
+let buscarCamperas = document.getElementById("navCamperas");
+buscarCamperas.addEventListener("click", filtrarCamperas);
+
+const filtrarSweaters = () =>{
+    let resultado = productos.filter((elemento) => elemento.categoria === "SWEATERS");
+    renderCards(resultado)
+}
+let buscarSweaters = document.getElementById("navSweaters");
+buscarSweaters.addEventListener("click", filtrarSweaters);
+
+const filtrarPantalones = () =>{
+    let resultado = productos.filter((elemento) => elemento.categoria === "PANTALONES");
+    renderCards(resultado)
+}
+let buscarPantalones = document.getElementById("navPantalones");
+buscarPantalones.addEventListener("click", filtrarPantalones);
+
+const filtrarVestidos = () =>{
+    let resultado = productos.filter((elemento) => elemento.categoria === "VESTIDOS");
+    renderCards(resultado)
+}
+let buscarVestidos = document.getElementById("navVestidos");
+buscarVestidos.addEventListener("click", filtrarVestidos);
+
+// 15 - Funciones para ocultar/mostrar el botón de pagar según el estado del carrito
+function ocultarBtnPagar(){
+    document.getElementById('btnPagar').style.display = 'none';
+}
+
+function mostrarBtnPagar(){
+    document.getElementById('btnPagar').style.display = 'block';
+}
+
+// 16 - Funciones para cambiar el color del boton del carrito según su estado
+function carritoLleno(){
+    document.getElementById('btnCarrito').className = "btn btn-success";
+}
+
+function carritoVacio(){
+    document.getElementById('btnCarrito').className = "btn btn-danger";
+}
+
+// 17 - Funcion para ocultar/mostrar modal del carrito segun su estado
+function ocultarContenidoCarrito(){
+    document.getElementById("modalHeader").style.display = "none";
+    document.getElementById("modalFooter").style.display = "none";
+    document.getElementById("tituloTabla").style.display = "none";
+}
+
+function mostrarContenidoCarrito(){
+    document.getElementById("modalHeader").style.display = "";
+    document.getElementById("modalFooter").style.display = "";
+    document.getElementById("tituloTabla").style.display = "";       
+}
+
+// 
+function cerrarModalPago(){
+    document.getElementById("modalPago").style.display = "none";
+}
+
+// 18 - Validacion del formulario de pago
+const nombre = document.getElementById("nombre");
+const tarjeta = document.getElementById("tarjeta");
+const vencimiento = document.getElementById("vencimiento");
+const pin = document.getElementById("pin");
+const formPago = document.getElementById("formPago");
+
+formPago.addEventListener("submit", e => {
+    e.preventDefault();
+    let warnings = "";
+    let entrar = false;
+    if(nombre.value.length < 6){
+        warnings += `Nombre y Apellido: debe ingresar al menos 6 caracteres.`
+        entrar = true;
+    }
+    if(tarjeta.value.length != 16){
+        warnings += `Número de tarjeta: debe ingresar 16 dígitos.`
+        entrar = true;
+    }
+    if(vencimiento.value.length != 7){
+        warnings += `Vencimiento: debe ingresar 5 caracteres.`
+        entrar = true;
+    }
+    if(pin.value.length != 4){
+        warnings += `PIN: debe ingresar 4 digitos.`
+        entrar = true;
+    }
+    if (entrar){
+        Swal.fire({
+            icon: 'warning',
+            title: 'Datos Incorrectos',
+            text: warnings,
+            })
+    } else {
+            Swal.fire(
+        'Tu pago ha sido exitoso',
+        'Muchas gracias por tu compra',
+        'success'
+        )
+        }
+        cerrarModalPago();   
+        carrito = {}; // vacia el carrito
+        renderCarrito(); // muestra carrito vacio    
+})
+
+
+
+    
+
+
+   
+
+
+
+    
+   
+
+
+
+
+
+
+  
+
+   
+
+
+
+
+    
+
+
+    
+
     
 
 

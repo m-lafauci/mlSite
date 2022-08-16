@@ -7,19 +7,149 @@ body{
     font-family: 'Roboto', sans-serif;
 }
 
-table th, tr{
+th, tr, td, span{
     text-align: center;
-}
-
-p{
-    font-size: 22px;
     
 }
 
+p{
+    font-size: 20px;    
+}
+
 h5{
-    font-size: 23px;
+    font-size: 20px;
     font-weight: bold;
 }
 
+.navbar{
+    background-color: #e9ecef;
+}
 
+.navbar ul li a{
+    color: darkslategray;
+    margin-right: 30px;
+    font-weight: bold;
+}
 
+.navbar ul li a:visited{
+    color:darkslategray;
+}
+
+.navbar ul li a:hover{
+    color: white;
+    background-color: darkslategray;
+    font-weight: bold;
+}
+
+.navbar-brand{
+    color: white;
+}
+
+#btnCarrito svg{
+    color: white;
+    font-weight: bold;
+    font-size: 50px;
+}
+
+.tituloTabla{
+    background-color: #e9ecef;
+    color: darkslategray;
+}
+
+.pieTabla{
+    background-color: #e9ecef;
+    color: darkslategray;
+}
+
+#btnAgregar{
+    height: 40px;
+    width: 80px;
+}
+
+#btnQuitar{
+    height: 40px;
+    width: 80px;
+}
+
+.bi{
+    color: white;
+}
+
+#modalPago {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+#modalPago body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: skyblue;
+    padding: 30px 10px;
+}
+
+#modalPago .card{
+    max-width: 500px;
+    margin: auto;
+    color: black;
+    border-radius: 20px;
+}
+
+#imgTarjetas{
+    margin:auto;
+    display:block;
+}
+
+#importe{
+    font-size: 35px;
+    font-weight: bolder;
+    align-self: center;
+    margin: 3px 0px 0px 0px;
+}
+
+#importeTotalPagar{
+    font-size: 15px;
+    font-style: italic;
+    align-self: center;
+    margin: 0px;
+}
+
+#btnFormConfirmarPago{
+    align-self: center;
+}
+
+#modalPago .form-control {
+    color: black;
+    background-color: #e9ecef;
+    border: 2px solid transparent;
+    height: 60px;
+    padding-left: 20px;
+    vertical-align: middle;
+}
+
+#modalPago .form-control:focus {
+    color: white;
+    background-color: #0C4160;
+    border: 2px solid #2d4dda;
+    box-shadow: none;
+}
+
+#modalPago .text {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+#modalPago ::placeholder {
+    font-size: 18px;
+    font-weight: 600;
+    font-weight: bold;
+
+}
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}

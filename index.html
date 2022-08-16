@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>mlSite</title>
+    <title>Style</title>
+    <link rel="icon" href="./assets/style_favicon.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
@@ -20,110 +21,196 @@
 </head>
 
 <body>
-  <nav class="navbar sticky-top navbar-expand-md navbar-dark bg-dark mb-4">
+  <nav class="navbar sticky-top navbar-expand-lg mb-4">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">Navbar</a>
+      <a class="navbar-brand">
+        <img alt="Brand" src="./assets/style.png">
+      </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0 mx-auto">
           <li class="nav-item">
-            <a class="nav-link" id="navRemeras" href="#">REMERAS</a>
+          <a class="nav-link" id="navRemeras" href="#">REMERAS</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">MUSCULOSAS</a>
+          <a class="nav-link" id="navMusculosas" href="#">MUSCULOSAS</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">CAMISAS</a>
+          <a class="nav-link" id="navCamisas" href="#">CAMISAS</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">BUZOS</a>
+          <a class="nav-link" id="navBuzos" href="#">BUZOS</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">CAMPERAS</a>
+          <a class="nav-link" id="navCamperas" href="#">CAMPERAS</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">SWEATERS</a>
+          <a class="nav-link" id="navSweaters" href="#">SWEATERS</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">PANTALONES</a>
+          <a class="nav-link" id="navPantalones" href="#">PANTALONES</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">VESTIDOS</a>
+          <a class="nav-link" id="navVestidos" href="#">VESTIDOS</a>
           </li>
         </ul>
-        <form id="busquedaNombre" class="d-flex" role="search">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-light my-sm-0" type="submit">Search</button>
-        </form>
+      <form id="busquedaNombre" class="d-flex" role="search">
+        <input class="form-control me-2" type="search" placeholder="Buscar artículos..." aria-label="Search"> 
+        <button class="btn btn-primary my-sm-0" type="submit">Buscar</button>
+      </form>
       </div>
     </div>
+    <form>
+      <button id="btnCarrito" type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalCarrito">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-cart-check-fill" viewBox="0 0 16 16">
+        <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm-1.646-7.646-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L8 8.293l2.646-2.647a.5.5 0 0 1 .708.708z"/>
+        </svg>
+      </button>
+    </form>
   </nav>
 
-<div id="cards" class="row">
-</div>
+  <div id="cards" class="row">
+  </div>
 
-<template id="template-card">
+  <template id="template-card">
     <div class="col-12 ml-5 mb-3 col-md-2">
-    <div class="card border-light text-center" style="width: 18rem;">
+      <div class="card border-light text-center" style="width: 16rem;">
         <img src="" alt="" class="card-img-top">
-        <div class="card-body">
-            <h5 class="card-title">Titulo</h5>
-            <p>Precio $</p>
-            <button class="btn btn-secondary btn-lg">Agregar al carrito</button>
-        </div>
+          <div class="card-body">
+          <h5 class="card-title">Titulo</h5>
+          <p>Precio $</p>
+          <button class="btn btn-primary btn-me">Agregar al carrito</button>
+          </div>
       </div>
     </div>
-</template>
+  </template>
 
-<div class="container justify-content-center">
-    <h5>Carrito de compras</h5>
-    <table class="table">
-      <thead class="table-dark">
-        <tr>
-          <th scope="col">ID</th>
-          <th scope="col">Nombre articulo</th>
-          <th scope="col">Cantidad</th>
-          <th scope="col">Agregar / Quitar</th>
-          <th scope="col">Total</th>
-        </tr>
-      </thead>
-      <tbody id="items" class="table-light"></tbody>
-      <tfoot class="table-dark">
-        <tr id="footer">
-          <th scope="row" colspan="5">Carrito vacio</th>
-        </tr>
-      </tfoot>
-    </table>
-</div>
+  <div class="modal fade" id="modalCarrito" tabindex="-1" aria-hidden="true" aria-labelledby="modalTitle" data-bs-backdrop="static">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+      <div id="modalContent" class="modal-content">
+        <div id="modalHeader" class="modal-header">
+          <h5 class="modal-title" id="modalTitle">Carrito de Compras</h5>
+        </div>
+        <div id="modalBody" class="modal-body">
+          <div id="carrito" class="container justify-content-center">
+            <table id="tabla" class="table">
+              <thead id="tituloTabla" class="tituloTabla">
+              <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Nombre del articulo</th>
+                <th scope="col">Agregar / Quitar</th>
+                <th scope="col">Unidades</th>
+                <th scope="col">Importe</th>
+              </tr>
+              </thead>
+              <tbody id="items">
+              </tbody>
+              <tfoot class="pieTabla">
+                <tr id="footer">
+                  <th scope="row" colspan="5">El carrito está vacío</th>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
 
-<template id="template-footer">
-  <th scope="row" colspan="2">Total</th>
-    <td></td>
-    <td>
-      <button class="btn btn-danger" id="vaciar-carrito">Vaciar carrito</button>
-      <button class="btn btn-success" id="comprar-carrito">Comprar</button>
-    </td>
-    <td class="font-weight-bold">$ <span></span></td>
-</template>
+          <template id="template-footer">
+            <th scope="row" colspan="2" style="vertical-align:middle">RESUMEN DEL CARRITO ►</th>
+            <td style="vertical-align:middle"></td>
+            <td style="vertical-align:middle">
+              <button class="btn btn-danger" id="vaciar-carrito">Vaciar carrito</button>
+            </td>
+            <td class="font-weight-bold" style="vertical-align:middle">$ <span></span></td>
+          </template>
 
-<template id="template-carrito"> 
-  <tr>
-    <th scope="row"></th>
-    <td></td>
-    <td></td>
-    <td>
-      <button class="btn btn-outline-success">Agregar</button>
-      <button class="btn btn-outline-danger">Quitar</button>
-    </td>
-    <td>$ <span></span></td>
-  </tr>
-</template>
+          <template id="template-carrito"> 
+            <tr style="vertical-align:middle">
+              <th scope="row" style="vertical-align:middle"></th>
+              <td style="vertical-align:middle"></td>
+              <td style="vertical-align:middle"></td>
+              <td style="vertical-align:middle">
+                <button id="btnAgregar" class="btn btn-outline-success">Agregar</button>
+                <button id="btnQuitar" class="btn btn-outline-danger">Quitar</button>
+              </td>
+              <td style="vertical-align:middle">$ <span></span></td>
+            </tr>
+          </template>
+        </div>
 
-<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
-<script src="./app.js"></script>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+          <button id="btnPagar" type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalPago" data-bs-dismiss="modalCarrito">Pagar</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="modalPago" tabindex="-1" aria-hidden="true" aria-labelledby="modalTitle2" data-bs-backdrop="static">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalTitle2">Confirmar pago</h5>
+          <button id="btnCerrarVentanaPago" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <div class="modal-body">
+          <div class="container">
+            <div>
+              <img id="imgTarjetas" src="./assets/cards_logo.png">
+            </div>
+            <br>
+          <div class="card px-3">
+            <div class="d-flex justify-content-center"></div>
+              <p id="importe"></p>
+              <p id="importeTotalPagar">Importe total a pagar</p><br>
+              <form id="formPago">  
+                <div class="row gx-3">
+                  <div class="col-12">
+                    <div class="d-flex flex-column">
+                      <p class="text mb-1">Nombre y Apellido</p>
+                      <input id="nombre" class="form-control mb-3" type="text" placeholder="Nombre y Apellido" style="text-transform:uppercase" required>
+                    </div>
+                  </div>
+                  <div class="col-12">
+                    <div class="d-flex flex-column">
+                      <p class="text mb-1">Número de tarjeta</p>
+                      <input id="tarjeta" class="form-control mb-3" type="number" placeholder="1234 5678 1234 5678" required>
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <div class="d-flex flex-column">
+                      <p class="text mb-1">Vencimiento</p>
+                      <input id="vencimiento" class="form-control mb-3" type="text" placeholder="MM/AAAA" required>
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <div class="d-flex flex-column">
+                      <p class="text mb-1">PIN</p>
+                      <input id="pin" class="form-control mb-3" type="password" placeholder="****" required>
+                    </div>
+                  </div>
+                  <div class="d-flex justify-content-center mb-3">
+                    <button id="btnFormConfirmarPago" type="submit" class="btn btn-success">Confirmar Pago</button>
+                  </div>  
+                </div>
+              </form>
+          </div>
+          </div>
+        </div>
+
+        <div id="modalFooter" class="modal-footer">
+          <a class="btn btn-secondary" href="#modalCarrito" data-bs-toggle="modal" data-bs-dismiss="modal" role="button">Volver atrás</a>
+        </div>
+
+      </div>
+    </div>
+  </div> 
+
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+  <script src="./app.js"></script>
 </body>
 </html>
 
