@@ -302,11 +302,6 @@ function mostrarContenidoCarrito(){
     document.getElementById("tituloTabla").style.display = "";       
 }
 
-// 
-/* function cerrarModalPago(){
-    document.getElementById("modalPago").style.display = "none";
-} */
-
 // 18 - Validacion del formulario de pago
 const nombre = document.getElementById("nombre");
 const tarjeta = document.getElementById("tarjeta");
@@ -347,10 +342,11 @@ formPago.addEventListener("submit", e => {
         'success'
         )
         }
-        /* cerrarModalPago();   */ 
         carrito = {}; // vacia el carrito
         renderCarrito(); // muestra carrito vacio    
 })
+
+
 
 
 
