@@ -164,9 +164,10 @@ const renderFooter = () => {
             'Se han eliminado todos los productos del carrito',
             'warning'
             )
+            carrito = {}; // vacia el carrito
+            renderCarrito(); // muestra carrito vacio 
             }
-        carrito = {}; // vacia el carrito
-        renderCarrito(); // muestra carrito vacio     
+            renderCarrito();
         })     
     })
 }
@@ -302,9 +303,9 @@ function mostrarContenidoCarrito(){
 }
 
 // 
-function cerrarModalPago(){
+/* function cerrarModalPago(){
     document.getElementById("modalPago").style.display = "none";
-}
+} */
 
 // 18 - Validacion del formulario de pago
 const nombre = document.getElementById("nombre");
@@ -346,7 +347,7 @@ formPago.addEventListener("submit", e => {
         'success'
         )
         }
-        cerrarModalPago();   
+        /* cerrarModalPago();   */ 
         carrito = {}; // vacia el carrito
         renderCarrito(); // muestra carrito vacio    
 })
