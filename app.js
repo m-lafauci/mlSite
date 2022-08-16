@@ -128,7 +128,9 @@ const renderFooter = () => {
     } else {
         mostrarBtnPagar();
         carritoLleno();
-        mostrarContenidoCarrito()
+        mostrarContenidoCarrito();
+        ocultarBtnFinalizar();
+        mostrarBtnsVolverCancelar();
     }
 
     // Calculos de cantidades e importes
@@ -215,56 +217,56 @@ let buscarPorNombre = document.getElementById("busquedaNombre");
 buscarPorNombre.addEventListener("submit", buscarProducto);
 
 // 14 - Filtros del navbar
-const filtrarRemeras = () =>{
+const filtrarRemeras = () => {
     let resultado = productos.filter((elemento) => elemento.categoria === "REMERAS");
     renderCards(resultado)
 }
 let buscarRemeras = document.getElementById("navRemeras");
 buscarRemeras.addEventListener("click", filtrarRemeras);
 
-const filtrarMusculosas = () =>{
+const filtrarMusculosas = () => {
     let resultado = productos.filter((elemento) => elemento.categoria === "MUSCULOSAS");
     renderCards(resultado)
 }
 let buscarMusculosas = document.getElementById("navMusculosas");
 buscarMusculosas.addEventListener("click", filtrarMusculosas);
 
-const filtrarCamisas = () =>{
+const filtrarCamisas = () => {
     let resultado = productos.filter((elemento) => elemento.categoria === "CAMISAS");
     renderCards(resultado)
 }
 let buscarCamisas = document.getElementById("navCamisas");
 buscarCamisas.addEventListener("click", filtrarCamisas);
 
-const filtrarBuzos = () =>{
+const filtrarBuzos = () => {
     let resultado = productos.filter((elemento) => elemento.categoria === "BUZOS");
     renderCards(resultado)
 }
 let buscarBuzos = document.getElementById("navBuzos");
 buscarBuzos.addEventListener("click", filtrarBuzos);
 
-const filtrarCamperas = () =>{
+const filtrarCamperas = () => {
     let resultado = productos.filter((elemento) => elemento.categoria === "CAMPERAS");
     renderCards(resultado)
 }
 let buscarCamperas = document.getElementById("navCamperas");
 buscarCamperas.addEventListener("click", filtrarCamperas);
 
-const filtrarSweaters = () =>{
+const filtrarSweaters = () => {
     let resultado = productos.filter((elemento) => elemento.categoria === "SWEATERS");
     renderCards(resultado)
 }
 let buscarSweaters = document.getElementById("navSweaters");
 buscarSweaters.addEventListener("click", filtrarSweaters);
 
-const filtrarPantalones = () =>{
+const filtrarPantalones = () => {
     let resultado = productos.filter((elemento) => elemento.categoria === "PANTALONES");
     renderCards(resultado)
 }
 let buscarPantalones = document.getElementById("navPantalones");
 buscarPantalones.addEventListener("click", filtrarPantalones);
 
-const filtrarVestidos = () =>{
+const filtrarVestidos = () => {
     let resultado = productos.filter((elemento) => elemento.categoria === "VESTIDOS");
     renderCards(resultado)
 }
@@ -302,7 +304,27 @@ function mostrarContenidoCarrito(){
     document.getElementById("tituloTabla").style.display = "";       
 }
 
-// 18 - Validacion del formulario de pago
+// 18 - Funciones para ocultar/mostrar el botón de finalizar
+function ocultarBtnFinalizar(){
+    document.getElementById('btnFinalizar').style.display = 'none';
+}
+
+function mostrarBtnFinalizar(){
+    document.getElementById('btnFinalizar').style.display = '';
+}
+
+// 19 - Funciones para ocultar/mostrar los botones "Volver atras" y "Cancelar"
+function ocultarBtnsVolverCancelar(){
+    document.getElementById('btnVolver').style.display = 'none';
+    document.getElementById('btnCancelar').style.display = 'none';
+}
+
+function mostrarBtnsVolverCancelar(){
+    document.getElementById('btnVolver').style.display = '';
+    document.getElementById('btnCancelar').style.display = '';
+}
+
+// 20 - Validacion del formulario de pago
 const nombre = document.getElementById("nombre");
 const tarjeta = document.getElementById("tarjeta");
 const vencimiento = document.getElementById("vencimiento");
@@ -338,13 +360,42 @@ formPago.addEventListener("submit", e => {
     } else {
             Swal.fire(
         'Tu pago ha sido exitoso',
-        'Muchas gracias por tu compra',
-        'success'
+        'Oprimí el botón FINALIZAR',
+        'info'
         )
-        }
-        carrito = {}; // vacia el carrito
-        renderCarrito(); // muestra carrito vacio    
+        mostrarBtnFinalizar();
+        ocultarBtnsVolverCancelar()
+        }        
 })
+
+// 20 - Función para limpiar datos de los inputs del form
+function resetForm(){
+    document.getElementById("nombre").value = "";
+    document.getElementById("tarjeta").value = "";
+    document.getElementById("vencimiento").value = "";
+    document.getElementById("pin").value = "";
+}
+
+// 21 - Finaliza el proceso de compra
+const finalizar = () => {
+    carrito = {};
+    renderCarrito();
+    resetForm();
+    Swal.fire({
+        icon: 'success',
+        title: 'Muchas gracias por tu compra!',
+        showConfirmButton: false,
+        timer: 1500
+      })
+}
+
+let cerrarFinalizar = document.getElementById("btnFinalizar");
+cerrarFinalizar.addEventListener("click", finalizar);
+
+// FIN
+
+
+
 
 
 

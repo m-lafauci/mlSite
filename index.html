@@ -24,7 +24,7 @@
   <nav class="navbar sticky-top navbar-expand-lg mb-4">
     <div class="container-fluid">
       <a class="navbar-brand">
-        <img alt="Brand" src="./assets/style.png">
+        <img alt="Brand" src="./assets/style.png" href="#">
       </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -202,7 +202,9 @@
         </div>
 
         <div id="modalFooter" class="modal-footer">
-          <a class="btn btn-secondary" href="#modalCarrito" data-bs-toggle="modal" data-bs-dismiss="modal" role="button">Volver atrás</a>
+          <a id="btnVolver" class="btn btn-secondary" href="#modalCarrito" data-bs-toggle="modal" data-bs-dismiss="modal" role="button">Volver atrás</a>
+          <button id="btnCancelar" type="button" class="btn btn-danger" data-bs-dismiss="modal" >Cancelar</button>
+          <button id="btnFinalizar" type="button" class="btn btn-success" data-bs-dismiss="modal" >Finalizar</button>
         </div>
 
       </div>
